@@ -36,8 +36,8 @@ int foodY;
 //*
 
 void setup() {
-size(300,300);
-head = new Segment(150,150);
+size(500,500);
+head = new Segment(250,250);
 frameRate(20);
 dropFood();
 }
@@ -79,7 +79,7 @@ void drawSnake() {
 }
 
 int direction = UP;
-int foodEaten = 1;
+int foodEaten = 0;
   
 ArrayList<Segment> tails = new ArrayList<Segment>();
 //*
@@ -89,8 +89,9 @@ ArrayList<Segment> tails = new ArrayList<Segment>();
 
 void drawTail() {
   //Draw each segment of the tail 
-for(int i = 0; i< foodEaten; i++){
- tails.add(new Segment(head.snakeX,head.snakeY));
+for(Segment s:tails){
+  fill(22,255,5);
+ rect(s.snakeX, s.snakeY, 10,10); 
 }
 }
 
@@ -99,17 +100,17 @@ void manageTail() {
   //This produces the illusion of the snake tail moving.
   checkTailCollision();
   drawTail();
-  rect(head.snakeX, head.snakeY, 10,10);
+tails.add(new Segment (head.snakeX, head.snakeY));
 tails.remove(0);
 }
 
 void checkTailCollision() {
   //If the snake crosses its own tail, shrink the tail back to one segment
-  for(int i = 3; i<tails.size();i++){
-  if(head.snakeX == tails.snakeX(i) && head.snakeY == tails(i).snakeY ){
-    foodEaten =1;
-    //refer to instructions
-    rect(head.snakeX, head.snakeY,10,10);
+  for(Segment z:tails){
+  if(head.snakeX == z.snakeX && head.snakeY == z.snakeY ){
+    foodEaten =0;
+    tails = new ArrayList<Segment>();
+tails.add(new Segment(head.snakeX, head.snakeY));
   }}
 }
 
@@ -148,19 +149,19 @@ void move() {
   switch(direction) {
   case UP:
     // move head up here 
-   head.snakeY--;
+   head.snakeY-=10;
 break;
   case DOWN:
     // move head down here 
-   head.snakeY++;
+   head.snakeY+=10;
 break;
   case LEFT:
    // figure it out 
-   head.snakeX --;
+   head.snakeX -=10;
 break;
   case RIGHT:
     // mystery code goes here 
-   head.snakeX ++;
+   head.snakeX +=10;
 break;
   }
   checkBoundaries();
@@ -187,15 +188,12 @@ void checkBoundaries() {
 void eat() {
   //When the snake eats the food, its tail should grow and more food appear
 if(head.snakeX == foodX && head.snakeY == foodY){
-  fill(0,0,0);
-  println("eaten");
-  rect(foodX, foodY,10,10);
   dropFood();
   foodEaten++;
-  drawFood();
+  tails.add(new Segment (head.snakeX, head.snakeY));
   println("food dropped");
   println(foodX +" _ "+ foodY);
 }
-tails.add
-// add another segment
+
+
 }
