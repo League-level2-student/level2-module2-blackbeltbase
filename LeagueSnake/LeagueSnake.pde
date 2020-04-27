@@ -60,6 +60,8 @@ void draw() {
   drawFood();
     move();
   drawSnake();
+  fill(255, 255, 255);
+  text("Score: "+foodEaten,head.snakeX, head.snakeY);
 eat();
 }
 
